@@ -10,7 +10,7 @@ import org.jsoup.Jsoup;
 public class Crawling {
 	public void sample(WebtoonDAO wdao) { // wdao: App에서 사용하는 model
 		final String url = "https://movie.naver.com/movie/bi/mi/basic.naver?code=222301";
-		Document doc = null;
+		Document doc = null; 
 		try {
 			doc = Jsoup.connect(url).get();
 		} catch (IOException e) {
