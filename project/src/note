@@ -1,0 +1,76 @@
+[Model]	이민호, 김민수, 우정희
+	newsVO
+		- num (PK)
+		- title
+		- category
+		- ncategory
+	userVO
+		- id (PK)
+		- nid
+		- pw
+		- npw
+		- name
+	newsDAO 
+		categoryAdd
+		categoryUpdate
+		categoryDelete
+	userDAO 
+		login
+		logout
+		searchTilte
+		searchCategory
+		uInsert
+		uDelete
+		uUpdate
+	crawling
+
+[View]	남소진
+멤버변수 : Scanner sc, int act
+	printMain()
+		1. 회원가입(C)	
+		2. 로그인(R)	
+		3. 프로그램 종료	
+		입력:
+	admin()
+		1. 카테고리 추가(C)	
+		2. 카테고리 수정(U)
+		3. 카테고리 삭제(D)
+		입력:
+	user()
+		1. 검색(기사 제목, 카테고리)(R)
+		2. 회원탈퇴(D)
+		3. 회원정보 변경(비밀번호,이름)(U)
+		입력:
+
+	입력받는 메서드
+		getId(), getPw(), getName(), getTitle(), updateId(), updatePw(), updateTitle(), deleteCheck()
+	출력하는 메서드
+		selectAll(), selectOne(), loginTrue(), updateIdTrue(), updatePwTrue(), deleteTrue(),
+		updateFalse(), logout(), programOff(), searchFalse(), deleteFalse(, )loginFalse()
+
+[Ctrl]	김승욱
+	startApp() {
+		printMain() {
+			1. 회원가입
+			2. 로그인
+				// if(getId.equals("admin") {
+					1. 기사 전체 출력
+					2. 카테고리 추가
+					3. 카테고리 수정(인자, num)
+						카테고리명 수정
+					4. 카테고리 삭제
+					5. 로그아웃
+				}
+				// else {
+					1. 기사 전체 출력
+					2. 검색
+					3. 회원정보 변경(인자: 비밀번호)
+						비밀번호 변경
+						이름 변경
+					4. 회원탈퇴
+					5. 로그아웃
+				}
+			3. 프로그램 종료
+
+[Client]
+
