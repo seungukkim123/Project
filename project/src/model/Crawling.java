@@ -24,7 +24,7 @@ public class Crawling {
 		Iterator<Element> itr2 = eles2.iterator();
 		while (itr2.hasNext()) {
 			// 출력할 itr을 문자열로 변환하기.
-			WebtoonVO wvo = new WebtoonVO();
+			WebtoonVO wvo = new WebtoonVO(); 
 			String title = itr.next().text();
 			wvo.setTitle(title);
 			String writer = itr2.next().text();
