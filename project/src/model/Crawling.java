@@ -12,7 +12,7 @@ public class Crawling {
 		final String url = "https://movie.naver.com/movie/bi/mi/basic.naver?code=222301";
 		Document doc = null; 
 		try {
-			doc = Jsoup.connect(url).get();
+			doc = Jsoup.connect(url).get(); 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
