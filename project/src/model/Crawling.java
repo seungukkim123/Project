@@ -17,7 +17,7 @@ public class Crawling {
 			e.printStackTrace();
 		}
 		// 제목 데이터 출력
-		Elements eles = doc.select("div.score_reple"); 
+		Elements eles = doc.select("div.score_reple");  
 		// 화면에 출력하기 위한 이터레이터
 		Iterator<Element> itr = eles.iterator();
 		Elements eles2 = doc.select("div > ul > li > div > dl > dt > em > a > span");
