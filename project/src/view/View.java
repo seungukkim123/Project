@@ -3,216 +3,273 @@ package view;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import model.MemberVO;
-import model.ProductVO;
+import model.NewsVO;
+import model.UserVO;
 
 public class View {
-	private Scanner sc;
+
+	// 멤버변수
+	Scanner sc; // 스캐너
+	int mact; // 메인화면 act 숫자
+	int sact; // 서비스화면 act 숫자
 
 	public View() {
 		sc = new Scanner(System.in);
+		mact = 3;
+		sact = 5;
 	}
 
+	// [메인 화면 출력]
 	public int printMain() {
-		// 1. 사용자의 입력 값을 검사 == 유효성 검사
-		// 2. 사용자에게 상황을 안내 == 사용자 편의성 고려
 		int act;
 		while (true) {
 			try {
-				System.out.println("=== 메인화면 ===");
+				System.out.println("===메인 화면===");
 				System.out.println("1. 로그인");
 				System.out.println("2. 회원가입");
-				System.out.println("4. 프로그램 종료");
-				System.out.print(">>> ");
+				System.out.println("3. 프로그램 종료");
+				System.out.print("입력>> ");
 				act = sc.nextInt();
 			} catch (Exception e) {
-				sc.nextLine();
-				System.out.println("정수로 다시 입력해주세요!");
+				System.out.println("잘못 입력하셨습니다, 정수 입력하세요!");
 				continue;
 			}
-			if (1 <= act && act <= 3) {
-				break; 
+			if (0 < act && act <= mact) {
+				break;
 			}
-			System.out.println("범위를 확인하고 다시 입력해주세요!");
+			System.out.println("범위를 잘못 입력하셨습니다, 다시 입력하세요!");
+			continue;
 		}
-		return act; 
+		return act;
 	}
 
-	public int admin() {
+	// [서비스 화면 출력]
+	public int printService() {
 		int act;
 		while (true) {
 			try {
-				System.out.println("==============");
-				System.out.println("관리자 페이지");
-				System.out.println("1. 상품 목록 출력");
-				System.out.println("2. 상품 추가");
-				System.out.println("3. 상품 삭제");
-				System.out.println("4. 상품 정보 변경");
+				System.out.println("===서비스 화면===");
+				System.out.println("1. 전체 기사 목록");
+				System.out.println("2. 제목(키워드) 검색");
+				System.out.println("3. 카테고리 검색");
+				System.out.println("4. 회원탈퇴");
 				System.out.println("5. 로그아웃");
-				System.out.print(">>> ");
+				System.out.print("입력>> ");
 				act = sc.nextInt();
-				System.out.println("==============\n");
 			} catch (Exception e) {
-				System.out.println("정수로 다시 입력해주세요");
+				System.out.println("잘못 입력하셨습니다, 정수 입력하세요!");
 				continue;
 			}
-			return act;
-		}
-	}
-
-	public void powerOff() {
-		for (int i = 0; i < 5; i++) {
-			System.out.println(".");
-			try {
-				Thread.sleep(300);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			if (0 < act && act <= sact) {
+				break;
 			}
+			System.err.println("범위를 잘못 입력하셨습니다, 다시 입력하세요!");
+			continue;
 		}
-		System.out.println("프로그램 종료");
+		return act;
 	}
 
-	public MemberVO login() {
-		System.out.println();
-		System.out.println("======== 로그인 ========");
-		System.out.print("ID: ");
+	// [id 입력]
+	public String getId() {
+		System.out.print("ID 입력>> ");
 		String id = sc.next();
-		System.out.print("PW: ");
+		return id;
+	}
+
+	// [pw 입력]
+	public String getPw() {
+		System.out.print("PW 입력>> ");
 		String pw = sc.next();
-		System.out.println("======================");
-		MemberVO vo = new MemberVO();
+		return pw;
+	}
+
+	// [이름 입력]
+	public String getName() {
+		System.out.print("이름 입력>> ");
+		String name = sc.next();
+		return name;
+	}
+
+	// [회원가입 완료시 멘트]
+	public void insertTrue(UserVO uvo) {
+		System.out.println("회원가입 성공!");
+		System.out.println(uvo.getId() + "님, 반갑습니다:D");
+	}
+
+	// [회원가입시, pw 더블체크]
+	public boolean douPw(UserVO uvo) {
+		System.out.print("한번 더 PW 입력>> ");
+		String prepw = sc.next();
+		if (uvo.getPw().equals(prepw)) {
+			return true;
+		}
+		return false;
+	}
+
+	// [회원가입 실패시 멘트]
+	public void insertFalse() {
+		System.out.println("회원가입 실패..다시 회원가입 해주세요!");
+	}
+
+	// [로그인 입력]
+	public UserVO login() {
+		System.out.println();
+		System.out.println("=== 로그인 ===");
+		System.out.print("ID 입력 >> ");
+		String id = sc.next();
+		System.out.print("PW 입력 >> ");
+		String pw = sc.next();
+		System.out.println("=============");
+		UserVO vo = new UserVO();
 		vo.setId(id);
 		vo.setPw(pw);
 		return vo;
 	}
 
-	public String updateName() {
-		System.out.println();
-		System.out.print("변경할 이름 입력: ");
-		String name = sc.next();
-		return name;
+	// [로그인 성공시 멘트]
+	public void loginTrue(UserVO uvo) {
+		System.out.println(uvo.getId() + "님, 안녕하세요 :D");
 	}
 
-	public String updatePw() {
-		System.out.println();
-		System.out.print("변경할 PW 입력: ");
-		String pw = sc.next();
-		return pw;
-	}
-
-	public String getproductName() {
-		System.out.print("상품이름 입력: ");
-		String name = sc.next();
-		return name;
-	}
-
-	public int getprice() {
-		System.out.print("가격 입력: ");
-		int price = sc.nextInt();
-		return price;
-	}
-
-	public int getPk() {
-		System.out.print("품번 입력: ");
-		int pk = sc.nextInt();
-		return pk;
-	}
-
-	public int getstock() {
-		System.out.print("재고 입력: ");
-		int stock = sc.nextInt();
-		System.out.println();
-		return stock;
-	}
-
-	public String getId() {
-		System.out.print("ID 입력: ");
-		String id = sc.next();
-		return id;
-	}
-
-	public String getPW() {
-		System.out.print("PW 입력: ");
-		String pw = sc.next();
-		return pw;
-	}
-
-	public String getName() {
-		System.out.print("이름 입력: ");
-		String name = sc.next();
-		return name;
-	}
-
-	public void loginTrue(MemberVO vo) {
-		System.out.println(vo.getName() + "님, 안녕하세요! :D\n");
-	}
-
+	// [로그인 실패시 멘트]
 	public void loginFalse() {
-		System.err.println("아이디 혹은 비밀번호를 확인해주세요!");
+		System.out.println("로그인 실패하셨습니다..다시 시도해주세요.");
 	}
 
-	public void logout() {
-		System.out.println("로그아웃 되었습니다.\n");
+	// [프로그램 종료]
+	public void programOff() {
+		System.out.println("프로그램 종료합니다~");
 	}
 
-	public int printMenu() {
-		int act;
+	// [제목(키워드) 검색 입력]+유효성검사
+	public String getTitle() {
+		String searchContent = null;
 		while (true) {
 			try {
-				System.out.println("==============");
-				System.out.println("회원 페이지");
-				System.out.println("1. 상품 목록 출력");
-				System.out.println("2. 상품 구매");
-				System.out.println("3. 회원 정보 변경");
-				System.out.println("4. 로그아웃");
-				System.out.print(">>> ");
-				act = sc.nextInt();
-				System.out.println("==============");
+				System.out.println("[제목(키워드) 검색]");
+				System.out.print("제목(키워드) 입력>> ");
+				searchContent = sc.next();
+				return searchContent;
 			} catch (Exception e) {
-				sc.nextLine();
-				System.out.println("정수로 다시 입력해주세요!");
+				System.out.println("예기치 못한 오류입니다, 다시 시도해주세요.");
 				continue;
 			}
-			return act;
 		}
 	}
 
-	public void printProductMenu(ArrayList<ProductVO> datas) {
-		System.out.println("================== 상품 목록 ==================");
-		for (ProductVO v : datas) {
-			System.out.println(
-					"품번 [" + v.getNum() + "] " + v.getName() + " " + v.getPrice() + "원 [" + v.getStock() + "]");
+	// [카테고리 검색 입력]+유효성검사
+	public String getCate() {
+		String searchContent;
+		while (true) {
+			try {
+				System.out.println("[카테고리 검색]");
+				System.out.print("카테고리 입력>> ");
+				searchContent = sc.next();
+				return searchContent;
+			} catch (Exception e) {
+				System.out.println("잘못 입력하셨습니다, 문자로 입력해주세요.");
+				continue;
+			}
 		}
-		System.out.println("=============================================\n");
 	}
 
-	public int buyProduct(ArrayList<ProductVO> datas) {
-		System.out.println();
-		System.out.println("================== 상품 목록 ==================");
-		for (ProductVO v : datas) {
-			System.out.println(
-					"품번 [" + v.getNum() + "] " + v.getName() + " " + v.getPrice() + "원, " + v.getStock() + "개");
-		}
-		System.out.print("구매할 상품번호 >> ");
-		int num = sc.nextInt();
-		System.out.println("============================================");
-		return num;
+	public String printSearchtitle(ArrayList<NewsVO> datas) {
+		System.out.print("제목 입력>> ");
+		String searchContents = sc.next();
+		return searchContents;
 	}
 
-	public void buyTrue(MemberVO mvo, ProductVO pvo) {
-		System.out.println("");
-		System.out.println("================== 영수증 ==================");
-		System.out.println(pvo.getName() + " " + pvo.getPrice() + "원");
-		System.out.println(mvo.getName() + "님, " + pvo.getName() + "를(을) 구매 완료 했습니다.");
-		System.out.println("==========================================\n");
+	public String printSearchcategory(ArrayList<NewsVO> datas) {
+		System.out.print("카테고리 입력>> ");
+		String searchContents = sc.next();
+		return searchContents;
 	}
-	public void buyFalse() {
-		System.out.println("구매 실패...");
+
+	// [카테고리 검색 성공 멘트]
+	public void cateTrue() {
+		System.out.println("검색 시작합니다!");
 	}
-	public void updateTrue() {
-		System.out.println("변경 성공!!");
+
+	// [카테고리 검색 실패 멘트]
+	public void cateFalse() {
+		System.out.println("없는 카테고리 입니다, 다시 입력해주세요");
 	}
-	public void updateFalse() {
-		System.out.println("변경 실패..");
+
+	// [검색 찾는중...]
+	public void ing() {
+		for (int i = 0; i < 5; i++) {
+			System.out.print(".");
+			try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println("==>> 검색 완료");
 	}
+
+	// [검색 목록 출력]
+	public void printDatas(ArrayList<NewsVO> datas) {
+			for (NewsVO v : datas) {
+				System.out.println(v);
+		}
+	}
+
+	// [검색 성공시 멘트]
+	public void searchTrue() {
+		System.out.println("검색 결과 입니다!");
+	}
+
+	// [검색 실패시 멘트]
+	public void searchFalse() {
+		System.out.println("검색 결과 없습니다.. ");
+	}
+
+	// [회원탈퇴 확인 멘트]
+	public boolean deleteCheck(UserVO uvo) {
+		String ans;
+		while (true) {
+			try {
+				System.out.println(uvo.getId() + "님, 정말 회원탈퇴 하시겠습니까? [Y/N]");
+				System.out.print("입력>>");
+				ans = sc.next();
+			} catch (Exception e) {
+				System.out.println("잘못 입력하셨습니다, 문자 입력하세요!");
+				continue;
+			}
+			if (ans.equals("Y")) {
+				return true;
+			} else if (ans.equals("N")) {
+				return false;
+			}
+			System.out.println("잘못 입력하셨습니다, 다시 입력하세요!");
+			continue;
+		}
+	}
+
+	// [회원탈퇴 성공]
+	public void deleteTrue() {
+		for (int i = 0; i < 3; i++) {
+			System.out.println(".");
+			try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println("회원탈퇴 성공입니다. 다음에 또 뵈어요:D");
+	}
+
+	// [회원탈퇴 실패]
+	public void deleteFalse() {
+		System.out.println("회원탈퇴 실패입니다..관리자에게 문의해주세요.");
+	}
+
+	// [로그아웃]
+	public void logout() {
+		System.out.println("로그아웃 되셨습니다.");
+	}
+
 }

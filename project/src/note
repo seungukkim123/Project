@@ -3,74 +3,77 @@
 		- num (PK)
 		- title
 		- category
-		- ncategory
+		- writer
+		- contents
+		- cnt
+		
 	userVO
 		- id (PK)
-		- nid
 		- pw
-		- npw
 		- name
+		
 	newsDAO 
-		categoryAdd
-		categoryUpdate
-		categoryDelete
+		insert(기사추가)
+		selectAll
+		searchTitle
+		searchCategory
+		
 	userDAO 
 		login
-		logout
 		searchTilte
 		searchCategory
 		uInsert
 		uDelete
 		uUpdate
+		overlapId
+		
 	crawling
+		정치파트
+		경제파트
+		사회파트
 
 [View]	남소진
-멤버변수 : Scanner sc, int act
-	printMain()
-		1. 회원가입(C)	
-		2. 로그인(R)	
-		3. 프로그램 종료	
-		입력:
-	admin()
-		1. 카테고리 추가(C)	
-		2. 카테고리 수정(U)
-		3. 카테고리 삭제(D)
-		입력:
-	user()
-		1. 검색(기사 제목, 카테고리)(R)
-		2. 회원탈퇴(D)
-		3. 회원정보 변경(비밀번호,이름)(U)
-		입력:
 
-	입력받는 메서드
-		getId(), getPw(), getName(), getTitle(), updateId(), updatePw(), updateTitle(), deleteCheck()
-	출력하는 메서드
-		selectAll(), selectOne(), loginTrue(), updateIdTrue(), updatePwTrue(), deleteTrue(),
-		updateFalse(), logout(), programOff(), searchFalse(), deleteFalse(, )loginFalse()
+	printMain() {
+		1. 로그인(R)
+		2. 회원가입(C)	
+		3. 프로그램 종료
+		}
+		
+	user() {
+		1. 전체 기사 목록
+		2. 제목(키워드) 검색
+		3. 카테고리 검색
+		4. 회원탈퇴(D)
+		5. 회원정보 변경(비밀번호,이름)(U)
+		}
+
+	Output이 있는 메서드
+		getId(), getPw(), getName(), getTitle(), getCate(), printSearchtitle(), printSearchCategory(),
+		
+	void 메서드
+		insertTrue(), insertFalse(), loginTrue(), loginFalse(), programOff(), cateTrue(), cateFalse(),
+		ing(), printDatas(), searchFalse(), deleteTrue(), deleteFalse(), logout()
+		
+	boolean 메서드
+		douPw(), deleteCheck()
 
 [Ctrl]	김승욱
+
 	startApp() {
 		printMain() {
-			1. 회원가입
-			2. 로그인
-				// if(getId.equals("admin") {
+			1. 로그인
 					1. 기사 전체 출력
-					2. 카테고리 추가
-					3. 카테고리 수정(인자, num)
-						카테고리명 수정
-					4. 카테고리 삭제
-					5. 로그아웃
-				}
-				// else {
-					1. 기사 전체 출력
-					2. 검색
-					3. 회원정보 변경(인자: 비밀번호)
-						비밀번호 변경
-						이름 변경
+					2. 제목 검색
+					3. 카테고리 검색
 					4. 회원탈퇴
 					5. 로그아웃
-				}
+				
+			2. 회원가입
+					ID 중복확인 및 PW 더블 체크
 			3. 프로그램 종료
+			}
+		}
 
 [Client]
 

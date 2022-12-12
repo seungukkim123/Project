@@ -1,83 +1,90 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class UserDAO {
-	ArrayList<UserVO> udatas;
+	ArrayList<UserVO> mdatas;
 
+	// 샘플데이터
 	public UserDAO() {
-		udatas = new ArrayList<UserVO>();
+		mdatas = new ArrayList<UserVO>();
+		mdatas.add(new UserVO("Lee", "1008", "이민호"));
 
-		udatas.add(new UserVO("admin", "admin", "관리자"));
-		udatas.add(new UserVO("hello", "1234", "사용자"));
 	}
 
-	// 로그인
-	public UserVO selectOne(UserVO uvo) {
-		for (int i = 0; i < udatas.size(); i++) {
-			if (udatas.get(i).getId().equals(uvo.getId())) {
-				System.out.println("  로그: 아이디 일치");
-				if (udatas.get(i).getPw().equals(uvo.getPw())) {
-					System.out.println("  로그: 비밀번호 일치");
-					System.out.println("  로그: 로그인 성공!!");
-					return udatas.get(i);
-				}
+	// 회원가입
+	public boolean uInsert(UserVO uvo) {
+		for (int i = 0; i < mdatas.size(); i++) {
+			if (mdatas.get(i).getId().equals(uvo.getId())) {
+				System.out.println("  로그: 중복된 아이디입니다.");
+				return false;
 			}
 		}
-		System.err.println("  로그: 로그인 실패..");
-		return null;
-	}
-
-	// 회원가입(사용자 측면)
-	public boolean signuUp(UserVO uvo) {
-		try {
-			udatas.add(new UserVO(uvo.getId(), uvo.getPw(), uvo.getName()));
-			System.out.println("  로그: 회원가입 성공!!");
-		} catch (Exception e) {
-			System.err.println("  로그: 회원가입 실패..");
-			return false;
-		}
+		mdatas.add(uvo);
+		System.out.println("  로그: 회원가입성공");
+		System.out.println("  로그:" + mdatas); // <로그확인
 		return true;
 	}
 
-	// 회원탈퇴(사용자측면)
-	public boolean delete(UserVO uvo) {
-		for (int i = 0; i < udatas.size(); i++) {
-			if (udatas.get(i).getId().equals(uvo.getId())) {
-				if (udatas.get(i).getPw().equals(uvo.getPw())) {
-					udatas.remove(i);
-					System.out.println("  로그: 삭제 성공!!");
-				}
+	// 회원탈퇴
+	public boolean uDelete(UserVO uvo) {
+		for (int i = 0; i < mdatas.size(); i++) {
+			if (mdatas.get(i).getId().equals(uvo.getId())) {
+				mdatas.remove(i);
+				System.out.println("  로그: 삭제완료");
+				System.out.println("  로그: 변경 후 출력" + mdatas);
 				return true;
 			}
 		}
-		System.err.println("  로그: 삭제 실패..");
+		System.out.println("  로그: 아이디를 다시 확인해주세요");
 		return false;
 	}
 
-	// 변경 항목 선택
-	public int choice() {
-		System.out.println("1. 아이디 변경 2. 비밀번호 변경");
-		System.out.print("입력: ");
-		int num = new Scanner(System.in).nextInt();
-		return num;
-	}
-
-	// 회원 정보 변경
-	public boolean update(UserVO uvo) {
-		for (int i = 0; i < udatas.size(); i++) {
-			if (uvo.getId() != null) {
-				udatas.get(i).setId(uvo.getId());
-				System.out.println("  로그: 아이디 변경 성공!!");
-			} else {
-				udatas.get(i).setPw(uvo.getPw());
-				System.out.println("  로그: 비밀번호 변경 성공!!");
+	// ID 중복 검사
+	public boolean overlapId(UserVO uvo) {
+		for (int i = 0; i < mdatas.size(); i++) {
+			if (mdatas.get(i).getId().equals(uvo.getId())) {
+				System.err.println("  로그: 중복된 ID");
+				return true;
 			}
-			return true;
 		}
-		System.err.println("  로그: 정보 변경 실패..");
+		System.out.println("  로그: 중복 확인");
 		return false;
+	}
+
+	// 정보변경(이름,비밀번호)
+	public boolean uUpdate(UserVO uvo) {
+		for (int i = 0; i < mdatas.size(); i++) {
+			if (mdatas.get(i).getId().equals(uvo.getId())) {
+				if (uvo.getName() != null) {
+					mdatas.get(i).setName(uvo.getName());
+				} else {
+					mdatas.get(i).setPw(uvo.getPw());
+				}
+				System.out.println("  로그: 정보변경 완료");
+				System.out.println("  로그: 변경 후 출력" + mdatas);
+				return true;
+			}
+		}
+		System.out.println("  로그: 정보변경 실패");
+		return false;
+	}
+
+	// 로그인
+	public UserVO login(UserVO uvo) {
+		for (int i = 0; i < mdatas.size(); i++) {
+			// equalsIgnoreCase == 문자열의 대, 소문자를 구분하지 않고 비교해주는 함수입니다.
+			if (mdatas.get(i).getId().equalsIgnoreCase(uvo.getId())) {
+				System.out.println("  로그: 아이디 존재");
+				if (mdatas.get(i).getPw().equals(uvo.getPw())) {
+					System.out.println("  로그: 비밀번호 일치");
+					System.out.println("  로그: 로그인 성공");
+					return mdatas.get(i);
+				}
+			}
+		}
+		System.out.println("  로그: 로그인 실패");
+		return null;
 	}
 
 }

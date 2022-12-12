@@ -1,7 +1,7 @@
 package model;
 
 public class UserVO {
-	private String id;
+	private String id; // pk
 	private String pw;
 	private String name;
 
@@ -31,7 +31,7 @@ public class UserVO {
 
 	@Override
 	public String toString() {
-		return "UserVO [id=" + id + ", pw=" + pw + ", name=" + name + "]";
+		return "userVO [id=" + id + ", pw=" + pw + ", name=" + name + "]";
 	}
 
 	public UserVO() {
@@ -43,5 +43,4 @@ public class UserVO {
 		this.pw = pw;
 		this.name = name;
 	}
-
 }

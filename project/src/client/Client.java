@@ -8,7 +8,6 @@ public class Client {
 		Ctrl app = new Ctrl();
 		
 		app.startApp();
-		
 	}
 
 }
