@@ -15,7 +15,7 @@ public class UserDAO {
 	// 회원가입
 	public boolean uInsert(UserVO uvo) {
 		for (int i = 0; i < mdatas.size(); i++) {
-			if (mdatas.get(i).getId().equals(uvo.getId())) {
+			if (mdatas.get(i).getId().equalsIgnoreCase(uvo.getId())) {
 				System.out.println("  로그: 중복된 아이디입니다.");
 				return false;
 			}
@@ -29,21 +29,23 @@ public class UserDAO {
 	// 회원탈퇴
 	public boolean uDelete(UserVO uvo) {
 		for (int i = 0; i < mdatas.size(); i++) {
-			if (mdatas.get(i).getId().equals(uvo.getId())) {
-				mdatas.remove(i);
-				System.out.println("  로그: 삭제완료");
-				System.out.println("  로그: 변경 후 출력" + mdatas);
-				return true;
+			if (mdatas.get(i).getId().equalsIgnoreCase(uvo.getId())) {
+				if (mdatas.get(i).getPw().equals(uvo.getPw())) {
+					System.out.println("삭제할 아이디: " + mdatas.get(i));
+					mdatas.remove(i);
+					System.out.println("  로그: 삭제완료");
+					return true;
+				}
 			}
 		}
-		System.out.println("  로그: 아이디를 다시 확인해주세요");
+		System.out.println("  로그: 아이디 혹은 비밀번호를 다시 확인해주세요");
 		return false;
 	}
 
 	// ID 중복 검사
 	public boolean overlapId(UserVO uvo) {
 		for (int i = 0; i < mdatas.size(); i++) {
-			if (mdatas.get(i).getId().equals(uvo.getId())) {
+			if (mdatas.get(i).getId().equalsIgnoreCase(uvo.getId())) {
 				System.err.println("  로그: 중복된 ID");
 				return true;
 			}
@@ -55,7 +57,7 @@ public class UserDAO {
 	// 정보변경(이름,비밀번호)
 	public boolean uUpdate(UserVO uvo) {
 		for (int i = 0; i < mdatas.size(); i++) {
-			if (mdatas.get(i).getId().equals(uvo.getId())) {
+			if (mdatas.get(i).getId().equalsIgnoreCase(uvo.getId())) {
 				if (uvo.getName() != null) {
 					mdatas.get(i).setName(uvo.getName());
 				} else {

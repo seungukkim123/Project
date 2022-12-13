@@ -31,6 +31,7 @@ public class View {
 				System.out.print("입력>> ");
 				act = sc.nextInt();
 			} catch (Exception e) {
+				sc.nextLine();
 				System.out.println("잘못 입력하셨습니다, 정수 입력하세요!");
 				continue;
 			}
@@ -57,6 +58,7 @@ public class View {
 				System.out.print("입력>> ");
 				act = sc.nextInt();
 			} catch (Exception e) {
+				sc.nextLine();
 				System.out.println("잘못 입력하셨습니다, 정수 입력하세요!");
 				continue;
 			}
@@ -68,7 +70,7 @@ public class View {
 		}
 		return act;
 	}
-
+	
 	// [id 입력]
 	public String getId() {
 		System.out.print("ID 입력>> ");
@@ -128,7 +130,7 @@ public class View {
 
 	// [로그인 성공시 멘트]
 	public void loginTrue(UserVO uvo) {
-		System.out.println(uvo.getId() + "님, 안녕하세요 :D");
+		System.out.println(uvo.getName() + "님, 안녕하세요 :D");
 	}
 
 	// [로그인 실패시 멘트]
@@ -151,6 +153,7 @@ public class View {
 				searchContent = sc.next();
 				return searchContent;
 			} catch (Exception e) {
+				sc.nextLine();
 				System.out.println("예기치 못한 오류입니다, 다시 시도해주세요.");
 				continue;
 			}
@@ -167,6 +170,7 @@ public class View {
 				searchContent = sc.next();
 				return searchContent;
 			} catch (Exception e) {
+				sc.nextLine();
 				System.out.println("잘못 입력하셨습니다, 문자로 입력해주세요.");
 				continue;
 			}
@@ -190,7 +194,7 @@ public class View {
 			try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+				sc.nextLine();
 				e.printStackTrace();
 			}
 		}
@@ -199,8 +203,8 @@ public class View {
 
 	// [검색 목록 출력]
 	public void printDatas(ArrayList<NewsVO> datas) {
-			for (NewsVO v : datas) {
-				System.out.println(v);
+		for (NewsVO v : datas) {
+			System.out.println(v);
 		}
 	}
 
@@ -223,12 +227,13 @@ public class View {
 				System.out.print("입력>>");
 				ans = sc.next();
 			} catch (Exception e) {
+				sc.nextLine();
 				System.out.println("잘못 입력하셨습니다, 문자 입력하세요!");
 				continue;
 			}
-			if (ans.equals("Y")) {
+			if (ans.equalsIgnoreCase("Y")) {
 				return true;
-			} else if (ans.equals("N")) {
+			} else if (ans.equalsIgnoreCase("N")) {
 				return false;
 			}
 			System.out.println("잘못 입력하셨습니다, 다시 입력하세요!");
@@ -243,7 +248,7 @@ public class View {
 			try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+				sc.nextLine();
 				e.printStackTrace();
 			}
 		}

@@ -36,43 +36,44 @@ public class Ctrl {
 				}
 				view.loginTrue(uvo);
 				// user메서드 실행 값
-				act = view.printService();
-				// 기사 전체 출력
-				if (act == 1) {
-					view.printDatas(ndao.selectAll(null));
-				}
-				
-				// 제목 검색
-				else if (act == 2) {
-					NewsVO nvo = new NewsVO();
-					nvo.setTitle(view.getTitle());
-					ndao.selectAll(nvo);
-					view.ing();
-					view.printDatas(ndao.searchTitle(nvo));
-				}
-				// 카테고리 검색
-				else if (act == 3) {
-					NewsVO nvo = new NewsVO();
-					nvo.setCategory(view.getCate());
-					ndao.selectAll(nvo);
-					view.ing();
-					view.printDatas(ndao.searchCategory(nvo));
-				}
-				// 회원탈퇴
-				else if (act == 4) {
-					uvo.setId(view.getId());
-					boolean flag = udao.uDelete(uvo);
-					if (!flag) {
-						view.deleteFalse();
-						continue;
+				while (true) {
+					act = view.printService();
+					// 기사 전체 출력
+					if (act == 1) {
+						view.printDatas(ndao.selectAll(null));
 					}
-					udao.uDelete(uvo);
-					view.deleteTrue();
-				}
-				// 로그아웃
-				else if (act == 5) {
-					view.logout();
-					continue;
+					// 제목 검색
+					else if (act == 2) {
+						NewsVO nvo = new NewsVO();
+						nvo.setTitle(view.getTitle());
+						ndao.selectAll(nvo);
+						view.ing();
+						view.printDatas(ndao.searchTitle(nvo));
+					}
+					// 카테고리 검색
+					else if (act == 3) {
+						NewsVO nvo = new NewsVO();
+						nvo.setCategory(view.getCate());
+						ndao.selectAll(nvo);
+						view.ing();
+						view.printDatas(ndao.searchCategory(nvo));
+					}
+					// 회원탈퇴
+					else if (act == 4) {
+						boolean flag = view.deleteCheck(uvo);
+						if (!flag) {
+							view.deleteFalse();
+							continue;
+						}
+						udao.uDelete(uvo);
+						view.deleteTrue();
+						break;
+					}
+					// 로그아웃
+					else if (act == 5) {
+						view.logout();
+						break;
+					}
 				}
 			}
 			// 회원가입
@@ -82,9 +83,9 @@ public class Ctrl {
 				uvo.setId(view.getId());
 				// ID 중복가 중복이라면 continue
 				if (udao.overlapId(uvo)) {// 어려워용... ㅜㅜ
-					// 컨트롤 던져!!!!!!!!!!!!!!
-					// ㅈㅁㄴㅇㅈㅁㄴㅇ
-					// 이거 키보드 저 주세요
+					// 컨트롤 던져!!!!!!!!!!!!!! => 아 곽준형,,, 무도인이라서 겸손한 척하네..
+					// ㅈㅁㄴㅇㅈㅁㄴㅇ => ㅈ못난이?
+					// 이거 키보드 저 주세요 => ..? 누군지 알아야 주죠^^
 					// ㅎㅎ
 					view.loginFalse();
 					continue;
