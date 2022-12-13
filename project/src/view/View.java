@@ -173,18 +173,6 @@ public class View {
 		}
 	}
 
-	public String printSearchtitle(ArrayList<NewsVO> datas) {
-		System.out.print("제목 입력>> ");
-		String searchContents = sc.next();
-		return searchContents;
-	}
-
-	public String printSearchcategory(ArrayList<NewsVO> datas) {
-		System.out.print("카테고리 입력>> ");
-		String searchContents = sc.next();
-		return searchContents;
-	}
-
 	// [카테고리 검색 성공 멘트]
 	public void cateTrue() {
 		System.out.println("검색 시작합니다!");

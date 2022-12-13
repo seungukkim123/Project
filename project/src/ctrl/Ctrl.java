@@ -41,6 +41,7 @@ public class Ctrl {
 				if (act == 1) {
 					view.printDatas(ndao.selectAll(null));
 				}
+				
 				// 제목 검색
 				else if (act == 2) {
 					NewsVO nvo = new NewsVO();
@@ -80,7 +81,11 @@ public class Ctrl {
 				// ID 입력
 				uvo.setId(view.getId());
 				// ID 중복가 중복이라면 continue
-				if (udao.overlapId(uvo)) {
+				if (udao.overlapId(uvo)) {// 어려워용... ㅜㅜ
+					// 컨트롤 던져!!!!!!!!!!!!!!
+					// ㅈㅁㄴㅇㅈㅁㄴㅇ
+					// 이거 키보드 저 주세요
+					// ㅎㅎ
 					view.loginFalse();
 					continue;
 				}
